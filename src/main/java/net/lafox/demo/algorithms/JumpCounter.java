@@ -1,6 +1,6 @@
 package net.lafox.demo.algorithms;
 
-import net.lafox.demo.algorithms.validator.ArrayValidator;
+import static net.lafox.demo.algorithms.validator.ArrayValidator.*;
 
 public class JumpCounter {
     public static final int MAX_SIZE = 10_000;
@@ -22,8 +22,8 @@ public class JumpCounter {
      * @return the number of jump to reach the given index, or -1 if the index is never reached.
      */
     public int countJumpsToIndex(int[] array, int jumpToIndex) {
-        ArrayValidator.validateSize(array, MIN_SIZE, MAX_SIZE);
-        ArrayValidator.validateValues(array);
+        validateSize(array, MIN_SIZE, MAX_SIZE);
+        validateValues(array);
 
         for (int i = 0, result = 0; i < array.length && i >= 0; i += array[i], result++) {
             if (i == jumpToIndex) return result;

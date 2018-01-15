@@ -1,9 +1,7 @@
 package net.lafox.demo.algorithms;
 
 
-import static net.lafox.demo.algorithms.validator.ArrayValidator.RANGE_MAX;
-import static net.lafox.demo.algorithms.validator.ArrayValidator.validateSize;
-import static net.lafox.demo.algorithms.validator.ArrayValidator.validateValues;
+import static net.lafox.demo.algorithms.validator.ArrayValidator.*;
 
 public class ChainBreaker {
     public static final int MIN_SIZE = 5;

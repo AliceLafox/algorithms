@@ -1,10 +1,14 @@
 package net.lafox.demo.algorithms;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import static net.lafox.demo.algorithms.validator.ArrayValidator.*;
 
-import net.lafox.demo.algorithms.validator.ArrayValidator;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import com.google.common.collect.Collections2;
 
 public class BestShuffle {
     private static final int ARRAY_SIZE = 4;
@@ -19,8 +23,8 @@ public class BestShuffle {
      * @return the maximum value of the differences for any ordering of the given values
      */
     public int calculateBestShuffle(int[] array) {
-        ArrayValidator.validateSize(array, ARRAY_SIZE);
-        ArrayValidator.validateValues(array);
+        validateSize(array, ARRAY_SIZE);
+        validateValues(array);
 
         return permute(array).stream().map(this::getDiffSum).max(Integer::compareTo).get();
     }
@@ -33,25 +37,8 @@ public class BestShuffle {
         return res;
     }
 
-    private List<List<Integer>> permute(int[] numbers) {
-        List<List<Integer>> permutations = new ArrayList<>();
-        permutations.add(new ArrayList<>());
-
-        for (int number : numbers) {
-            permutations = calcPermutations(number, permutations);
-        }
-        return permutations;
+    private Collection<List<Integer>> permute(int[] numbers) {
+        return Collections2.permutations(IntStream.of(numbers).boxed().collect(Collectors.toList()));
     }
 
-    private List<List<Integer>> calcPermutations(int number, List<List<Integer>> permutations) {
-        List<List<Integer>> current = new ArrayList<>();
-        for (List<Integer> permutation : permutations) {
-            for (int j = 0, n = permutation.size() + 1; j < n; j++) {
-                List<Integer> temp = new ArrayList<>(permutation);
-                temp.add(j, number);
-                current.add(temp);
-            }
-        }
-        return new ArrayList<>(current);
-    }
 }
